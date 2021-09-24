@@ -1,0 +1,12 @@
+aiohttp==3.7.4.post0
+async-timeout==3.0.1
+attrs==21.2.0
+chardet==4.0.0
+idna==3.2
+multidict==5.1.0
+pyaes==1.6.1
+pyasn1==0.4.8
+rsa==4.7.2
+Telethon==1.23.0
+typing-extensions==3.10.0.2
+yarl==1.6.3
