@@ -1,3 +1,5 @@
+#!/environments/venv_vgramm/bin python
+
 from telethon import TelegramClient, events
 import re
 
