@@ -12,15 +12,16 @@ keywords = ['ui', 'ux', 'ui/ux', '#ui', '#ux', '#ui/ux', 'дизайнер', 'и
 @client.on(events.NewMessage)
 async def my_event_handler(event):
 
+    raw_text = event.raw_text.lower()
     text = re.sub('\W', ' ', event.raw_text.lower())
 
-    if '.all' in event.raw_text.lower():
+    if raw_text.startwith('/all'):
         await client.send_message('+79067836944', f'Использумые ключевые слова: {keywords}')
         await client.send_message('+79104778970', f'Использумые ключевые слова: {keywords}')
 
 
-    elif '.add' in event.raw_text.lower():
-        add_keywords = event.raw_text.lower().replace('.add ', '').split(',')
+    elif raw_text.startwith('/add'):
+        add_keywords = event.raw_text.lower().replace('/all ', '').split(',')
         for keyword in add_keywords:
             keywords.append(keyword.strip())
         await client.send_message('+79067836944',
@@ -28,8 +29,8 @@ async def my_event_handler(event):
         await client.send_message('+79104778970',
                                   f'Ключевые слова ДОБАВЛЕНЫ. Все использумые ключевые слова: {keywords}')
 
-    elif '.del' in event.raw_text.lower():
-        del_keywords = event.raw_text.lower().replace('.del ', '').split(',')
+    elif raw_text.startwith('/del'):
+        del_keywords = event.raw_text.lower().replace('/del ', '').split(',')
         for keyword in del_keywords:
             print(keyword)
             if keyword.strip() in keywords:
