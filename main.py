@@ -1,15 +1,14 @@
-#!/environments/venv_vgramm/bin python
+#!/environments/vgramm/venv/bin python
 
 from telethon import TelegramClient, events
 
 import re
 
-# Use your own values from my.telegram.org
 api_id = 8687001
 api_hash = 'd243535550a3b97eae1bc6fa54b26857'
 
 client = TelegramClient('VGramm', api_id, api_hash)
-keywords = ['ui', 'ux', 'ui/ux', '#ui', '#ux', '#ui/ux', 'дизайнер', 'ищу дизайнера']
+keywords = ['ui', 'ux', 'ui/ux', 'дизайнер', 'ищу дизайнера']
 
 
 @client.on(events.NewMessage)
@@ -33,8 +32,8 @@ async def my_event_handler(event):
 
 
     if raw_text == '/all':
-        await client.send_message('+79067836944', f'Использумые ключевые слова: {keywords}')
-        await client.send_message('+79104778970', f'Использумые ключевые слова: {keywords}')
+        await client.send_message('+79067836944', f'Использумые ключевые слова: **{keywords}**')
+        await client.send_message('+79104778970', f'Использумые ключевые слова: **{keywords}**')
 
 
     elif raw_text.startswith('/add'):
@@ -43,9 +42,9 @@ async def my_event_handler(event):
             for keyword in add_keywords:
                 keywords.append(keyword.strip())
                 await client.send_message('+79067836944',
-                                      f'Ключевое слово {keyword.strip()} ДОБАВЛЕНО. Все использумые ключевые слова: {keywords}')
+                                      f'Ключевое слово **{keyword.strip()}** ДОБАВЛЕНО. Все использумые ключевые слова: {keywords}')
                 await client.send_message('+79104778970',
-                                      f'Ключевое слово {keyword.strip()} ДОБАВЛЕНО. Все использумые ключевые слова: {keywords}')
+                                      f'Ключевое слово **{keyword.strip()}** ДОБАВЛЕНО. Все использумые ключевые слова: {keywords}')
         else:
             await client.send_message('+79067836944',
                                       f'Попробуйте ещё раз, но с ключевым словом.')
@@ -60,14 +59,14 @@ async def my_event_handler(event):
                 if keyword.strip() in keywords:
                     keywords.remove(keyword.strip())
                     await client.send_message('+79067836944',
-                                              f'Ключевое слово {keyword.strip()} УДАЛЕНО. Все использумые ключевые слова: {keywords}')
+                                              f'Ключевое слово **{keyword.strip()}** УДАЛЕНО. Все использумые ключевые слова: {keywords}')
                     await client.send_message('+79104778970',
-                                              f'Ключевое слово {keyword.strip()} УДАЛЕНО. Все использумые ключевые слова: {keywords}')
+                                              f'Ключевое слово **{keyword.strip()}** УДАЛЕНО. Все использумые ключевые слова: {keywords}')
                 else:
                     await client.send_message('+79067836944',
-                                              f'Ключевого слова {keyword.strip()} нет в списке')
+                                              f'Ключевого слова **{keyword.strip()}** нет в списке')
                     await client.send_message('+79104778970',
-                                              f'Ключевого слова {keyword.strip()} нет в списке')
+                                              f'Ключевого слова **{keyword.strip()} **нет в списке')
         else:
             await client.send_message('+79067836944',
                                       f'Попробуйте ещё раз, но с ключевым словом.')
