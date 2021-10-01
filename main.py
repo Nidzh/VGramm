@@ -5,8 +5,8 @@ from loguru import logger
 
 logger.add('debug.log', format='{time} {level} {message}', encoding='UTF-8')
 
-api_id = 8687001
-api_hash = 'd243535550a3b97eae1bc6fa54b26857'
+api_id = "API_ID"
+api_hash = "API_HASH"
 
 client = TelegramClient('VGramm', api_id, api_hash)
 keywords = ['ui', 'ui/ux', 'дизайнер', 'ищу дизайнера', 'wordpress', 'вордпресс', 'вордпрес', 'редизайн',
@@ -27,16 +27,7 @@ async def my_event_handler(event):
                  f'format_text: {text}')
 
     if raw_text == '/help':
-        await client.send_message('+79067836944', f'Доступные команды:\n\n'
-                                                  f'**/help** - `Подсказка`\n\n'
-                                                  f'**/all** - `Показать все активные ключевые слова`\n\n'
-                                                  f'**/all_bad** - `Показать все активные исключаемые слова`\n\n'
-                                                  f'**/add keyword1, keyword2, key word3** - `Добавить ключевые слова в списке. Через запятую, в любом регистре`\n\n'
-                                                  f'**/del keyword1, keyword2, key word3** - `Удалить ключевые слова в списке. Через запятую, в любом регистре`\n\n'
-                                                  f'**/add_bad keyword1, keyword2, key word3** - `Добавить исключающие слова в списке. Через запятую, в любом регистре`\n\n'
-                                                  f'**/del_bad keyword1, keyword2, key word3** - `Удалить исключающие слова в списке. Через запятую, в любом регистре`')
-
-        await client.send_message('+79104778970', f'Доступные команды:\n\n'
+        await client.send_message('me', f'Доступные команды:\n\n'
                                                   f'**/help** - `Подсказка`\n\n'
                                                   f'**/all** - `Показать все активные ключевые слова`\n\n'
                                                   f'**/all_bad** - `Показать все активные исключаемые слова`\n\n'
@@ -47,13 +38,10 @@ async def my_event_handler(event):
 
 
     elif raw_text == '/all':
-        await client.send_message('+79067836944', f'Использумые ключевые слова: **{keywords}**')
-        await client.send_message('+79104778970', f'Использумые ключевые слова: **{keywords}**')
+        await client.send_message('me', f'Использумые ключевые слова: **{keywords}**')
 
     elif raw_text == '/all_bad':
-        await client.send_message('+79067836944', f'Использумые исключающие слова: **{bad_keywords}**')
-        await client.send_message('+79104778970', f'Использумые исключающие слова: **{bad_keywords}**')
-
+        await client.send_message('me', f'Использумые исключающие слова: **{bad_keywords}**')
 
     elif raw_text.startswith('/add_bad'):
         add_keywords = event.raw_text.lower().replace('/add_bad', '').split(',')
@@ -61,14 +49,10 @@ async def my_event_handler(event):
         if add_keywords[0]:
             for keyword in add_keywords:
                 bad_keywords.append(keyword.strip())
-                await client.send_message('+79067836944',
-                                          f'Исключающее слово **{keyword.strip()}** ДОБАВЛЕНО. Все использумые исключающие ключевые слова: {bad_keywords}')
-                await client.send_message('+79104778970',
+                await client.send_message('me',
                                           f'Исключающее слово **{keyword.strip()}** ДОБАВЛЕНО. Все использумые исключающие ключевые слова: {bad_keywords}')
         else:
-            await client.send_message('+79067836944',
-                                      f'Попробуйте ещё раз, но с исключающим словом.')
-            await client.send_message('+79104778970',
+            await client.send_message('me',
                                       f'Попробуйте ещё раз, но с исключающим словом.')
 
     elif raw_text.startswith('/del_bad'):
@@ -78,15 +62,11 @@ async def my_event_handler(event):
             for keyword in del_keywords:
                 if keyword.strip() in bad_keywords:
                     bad_keywords.remove(keyword.strip())
-                    await client.send_message('+79067836944',
-                                              f'Исключающее слово **{keyword.strip()}** УДАЛЕНО. Все использумые исключающие слова: {bad_keywords}')
-                    await client.send_message('+79104778970',
+                    await client.send_message('me',
                                               f'Исключающее слово **{keyword.strip()}** УДАЛЕНО. Все использумые исключающие слова: {bad_keywords}')
                 else:
-                    await client.send_message('+79067836944',
+                    await client.send_message('me',
                                               f'Исключающего слова **{keyword.strip()}** нет в списке')
-                    await client.send_message('+79104778970',
-                                              f'Исключающего слова **{keyword.strip()} **нет в списке')
 
     elif raw_text.startswith('/add'):
         add_keywords = event.raw_text.lower().replace('/add', '').split(',')
@@ -94,19 +74,11 @@ async def my_event_handler(event):
         if add_keywords[0]:
             for keyword in add_keywords:
                 keywords.append(keyword.strip())
-                await client.send_message('+79067836944',
-                                          f'Ключевое слово **{keyword.strip()}** ДОБАВЛЕНО. Все использумые ключевые слова: {keywords}')
-                await client.send_message('+79104778970',
+                await client.send_message('me',
                                           f'Ключевое слово **{keyword.strip()}** ДОБАВЛЕНО. Все использумые ключевые слова: {keywords}')
         else:
-            await client.send_message('+79067836944',
+            await client.send_message('me',
                                       f'Попробуйте ещё раз, но с ключевым словом.')
-            await client.send_message('+79104778970',
-                                      f'Попробуйте ещё раз, но с ключевым словом.')
-
-
-
-
 
     elif raw_text.startswith('/del'):
         del_keywords = event.raw_text.lower().replace('/del', '').split(',')
@@ -116,22 +88,13 @@ async def my_event_handler(event):
                 print(keyword)
                 if keyword.strip() in keywords:
                     keywords.remove(keyword.strip())
-                    await client.send_message('+79067836944',
-                                              f'Ключевое слово **{keyword.strip()}** УДАЛЕНО. Все использумые ключевые слова: {keywords}')
-                    await client.send_message('+79104778970',
+                    await client.send_message('me',
                                               f'Ключевое слово **{keyword.strip()}** УДАЛЕНО. Все использумые ключевые слова: {keywords}')
                 else:
-                    await client.send_message('+79067836944',
-                                              f'Ключевого слова **{keyword.strip()}** нет в списке')
-                    await client.send_message('+79104778970',
-                                              f'Ключевого слова **{keyword.strip()} **нет в списке')
-
-
-
+                    await client.send_message('me',
+                                              f'Ключевого слова **{keyword.strip()}** нет в списке')  
         else:
-            await client.send_message('+79067836944',
-                                      f'Попробуйте ещё раз, но с исключающим словом.')
-            await client.send_message('+79104778970',
+            await client.send_message('me',
                                       f'Попробуйте ещё раз, но с исключающим словом.')
 
     else:
@@ -146,25 +109,20 @@ async def my_event_handler(event):
             if len(keyword.split()) == 1:
                 if keyword in text.split() and text_is_bad == False:
                     try:
-                        await client.forward_messages('+79067836944', event.message)
-                        await client.forward_messages('+79104778970', event.message)
+                        await client.forward_messages('me', event.message)
                     except Exception as e:
                         logger.error(f'Exception: {e}')
-                        await client.send_message('+79067836944', f'Пользовател запретил пересылку своих сообщений.'
+                        await client.send_message('me', f'Пользовател запретил пересылку своих сообщений.'
                                                                   f'Текст: {event.raw_text}'
                                                                   f'Отправитель: {event.get_sender()}'
                                                                   f'Ищи в чате: {event.get_chat()}')
-                        await client.send_message('+79104778970', f'Пользовател запретил пересылку своих сообщений.'
-                                                                  f'Текст: {event.raw_text}'
-                                                                  f'Отправитель: {event.get_sender()}'
-                                                                  f'Ищи в чате: {event.get_chat()}')
+
                     break
+            
             elif len(keyword.split()) > 1:
                 if keyword in text and text_is_bad == False:
-                    await client.forward_messages('+79067836944', event.message)
-                    await client.forward_messages('+79104778970', event.message)
+                    await client.forward_messages('me', event.message)
                     break
-
 
 client.start()
 client.run_until_disconnected()
